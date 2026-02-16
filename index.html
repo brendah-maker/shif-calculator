@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHIF vs NHIF Calculator | Legal & Financial Tools Hub Kenya</title>
+<meta name="description" content="Calculate your SHIF contribution, compare with previous NHIF, view benefits, and compliance reminders. Access Kenya PAYE calculator and understand payroll deductions.">
+<meta name="keywords" content="SHIF calculator Kenya, NHIF comparison, Kenya payroll calculator, salary deductions, SHIF benefits, compliance reminders">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yourdomain.com/shif-calculator.html">
+
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+header {
+    text-align: center;
+    padding: 30px 10px 10px;
+}
+header h1 {
+    font-size: 26px;
+}
+header p {
+    font-size: 16px;
+    color: #cbd5e1;
+    margin-top: 5px;
+}
+.container {
+    width: 95%;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    padding: 20px;
+    background: #1e293b;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+.info-section {
+    margin-bottom: 20px;
+    background: #334155;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.info-section h2 {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #fbbf24;
+}
+.info-section ul {
+    padding-left: 18px;
+}
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    background: #3b82f6;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    background: #2563eb;
+}
+.results {
+    margin-top: 25px;
+    padding: 20px;
+    background: #0f172a;
+    border-radius: 10px;
+    display: none;
+}
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.comparison {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+.positive {
+    background: #7f1d1d;
+    color: #fecaca;
+}
+.negative {
+    background: #064e3b;
+    color: #bbf7d0;
+}
+a.tool-link {
+    display: inline-block;
+    margin-top: 15px;
+    background: #f97316;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+a.tool-link:hover {
+    background: #ea580c;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Legal & Financial Tools Hub</h1>
+    <p>Calculate SHIF contributions, compare with previous NHIF, and access the Kenya PAYE calculator.</p>
+</header>
+
+<div class="container">
+
+    <!-- Compliance Section -->
+    <div class="info-section">
+        <h2>SHIF Compliance Reminders</h2>
+        <p>The Social Health Insurance Fund (SHIF) is mandatory for all Kenyan residents earning a salary. Employers and employees must ensure timely contributions to remain compliant and access health benefits.</p>
+        <ul>
+            <li>Contribution due date: <strong>9th of the month following the payroll month</strong></li>
+            <li>All residents and salaried employees are required to contribute</li>
+            <li>Late payment attracts a <strong>2% penalty per month</strong> on the outstanding contribution</li>
+            <li>Registration is mandatory through the <a href="https://shif.go.ke/" target="_blank" style="color:#fbbf24; text-decoration:underline;">official SHIF portal</a></li>
+            <li>Employers must remit contributions on behalf of employees to avoid penalties</li>
+            <li>SHIF compliance ensures eligibility for government health coverage and benefits</li>
+        </ul>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="info-section">
+        <h2>SHIF Benefits Overview</h2>
+        <p>SHIF contributions provide essential health coverage for you and your family. Key benefits include:</p>
+        <ul>
+            <li>Comprehensive inpatient and outpatient medical coverage</li>
+            <li>Maternal and child healthcare services</li>
+            <li>Management support for chronic diseases such as diabetes and hypertension</li>
+            <li>Emergency and referral medical services</li>
+            <li>Access to approved public and private hospitals across Kenya</li>
+            <li>Financial protection against high medical costs</li>
+        </ul>
+    </div>
+
+    <!-- Calculator Section -->
+    <label for="salary">Enter Gross Monthly Salary (KES)</label>
+    <input type="number" id="salary" placeholder="e.g. 50000">
+    <button onclick="calculate()">Calculate SHIF Contribution</button>
+
+    <div class="results" id="results">
+        <div class="result-item">
+            <span>SHIF Contribution (2.75%)</span>
+            <span id="shifResult"></span>
+        </div>
+
+        <div class="result-item">
+            <span>Previous NHIF Contribution</span>
+            <span id="nhifResult"></span>
+        </div>
+
+        <div id="comparisonBox" class="comparison"></div>
+
+        <div style="text-align:center;">
+            <a class="tool-link" href="https://kenya-salary-calculator.vercel.app/index.html" target="_blank">Go to PAYE Calculator</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function calculate() {
+    let salary = parseFloat(document.getElementById("salary").value);
+    if (!salary || salary <= 0) {
+        alert("Please enter a valid salary.");
+        return;
+    }
+
+    // SHIF Calculation (2.75%)
+    let shif = salary * 0.0275;
+
+    // Previous NHIF Bands (example structure)
+    let nhif = 0;
+    if (salary <= 5999) nhif = 150;
+    else if (salary <= 7999) nhif = 300;
+    else if (salary <= 11999) nhif = 400;
+    else if (salary <= 14999) nhif = 500;
+    else if (salary <= 19999) nhif = 600;
+    else if (salary <= 24999) nhif = 750;
+    else if (salary <= 29999) nhif = 850;
+    else if (salary <= 34999) nhif = 900;
+    else if (salary <= 39999) nhif = 950;
+    else if (salary <= 44999) nhif = 1000;
+    else if (salary <= 49999) nhif = 1100;
+    else if (salary <= 59999) nhif = 1200;
+    else if (salary <= 69999) nhif = 1300;
+    else if (salary <= 79999) nhif = 1400;
+    else if (salary <= 89999) nhif = 1500;
+    else if (salary <= 99999) nhif = 1600;
+    else nhif = 1700;
+
+    let difference = shif - nhif;
+    let percentChange = (difference / nhif) * 100;
+
+    document.getElementById("shifResult").innerText = "KES " + shif.toFixed(2);
+    document.getElementById("nhifResult").innerText = "KES " + nhif.toFixed(2);
+
+    let comparisonBox = document.getElementById("comparisonBox");
+    if (difference > 0) {
+        comparisonBox.className = "comparison positive";
+        comparisonBox.innerText = 
+            "You will pay (+"
+            + percentChange.toFixed(1) 
+            + "%) KES "
+            + difference.toFixed(2)
+            + " more than previous NHIF contribution.";
+    } else {
+        comparisonBox.className = "comparison negative";
+        comparisonBox.innerText = 
+            "You will pay ("
+            + percentChange.toFixed(1)
+            + "%) KES "
+            + Math.abs(difference).toFixed(2)
+            + " less than previous NHIF contribution.";
+    }
+
+    document.getElementById("results").style.display = "block";
+}
+</script>
+
+<footer style="text-align:center; padding:20px; font-size:14px; color:#cbd5e1;">
+    <a href="/about.html" style="color:#fbbf24; text-decoration:none;">About</a> | 
+    <a href="/privacy.html" style="color:#fbbf24; text-decoration:none;">Privacy Policy</a>
+</footer>
+
+
+</body>
+</html>
